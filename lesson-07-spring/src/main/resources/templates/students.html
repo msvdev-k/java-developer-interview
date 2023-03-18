@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Студенты</title>
+</head>
+
+<body>
+<H2>Добавить нового студента</H2>
+<form th:action="@{/}" th:method="post" th:object="${newStudent}">
+    <input type="hidden" th:field="*{id}" id="id" name="id">
+    <label>Имя</label>
+    <input type="text" th:field="*{name}" id="name" name="name">
+    <label>Возраст</label>
+    <input type="number" th:field="*{age}" id="age" name="age">
+    <button type="submit">Submit</button>
+</form>
+
+<H2>Обновить данные о студенте</H2>
+<form th:action="@{/}" th:method="put" th:object="${updateStudent}">
+    <label>Id</label>
+    <input type="number" th:field="*{id}" id="idNew" name="id">
+    <label>Имя</label>
+    <input type="text" th:field="*{name}" id="nameNew" name="name">
+    <label>Возраст</label>
+    <input type="number" th:field="*{age}" id="ageNew" name="age">
+    <button type="submit">Submit</button>
+</form>
+
+<H2>Список студентов</H2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Возраст</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student: ${students}" >
+        <th th:text="${student.id}"></th>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.age}"></td>
+        <td>
+            <form th:method="delete" th:action="@{/{id}(id = ${student.id})}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
